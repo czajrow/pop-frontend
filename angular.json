@@ -8,6 +8,17 @@
       "schematics": {
         "@schematics/angular:component": {
           "style": "scss"
+        },
+        "@schematics/angular": {
+          "component": {
+            "skipTests": true
+          },
+          "service": {
+            "skipTests": true
+          },
+          "directive": {
+            "skipTests": true
+          }
         }
       },
       "root": "",
@@ -28,7 +39,8 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "./node_modules/bootstrap/dist/css/bootstrap.css"
             ],
             "scripts": []
           },
@@ -123,6 +135,7 @@
           }
         }
       }
-    }},
+    }
+  },
   "defaultProject": "pop-frontend"
 }
