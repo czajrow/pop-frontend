@@ -429,4 +429,36 @@ export class DiagramBuilderComponent {
     // so the GraphLinksModel needs to set these property names:
     // linkFromPortIdProperty and linkToPortIdProperty.
   }
+
+  // Add a port to the specified side of the selected nodes.
+  public addPort(side) {
+    const getPortColor = function () {
+      var portColors = ["#162447", "#1f4068", "#1b1b2f", "#e43f5a", "#4b5d67", "#322f3d", "#59405c"]
+      return portColors[Math.floor(Math.random() * portColors.length)];
+    }
+    var myDiagram = this.myDiagramComponent.diagram;
+    this.myDiagramComponent.diagram.startTransaction("addPort");
+    this.myDiagramComponent.diagram.selection.each(function (node) {
+      // skip any selected Links
+      if (!(node instanceof go.Node)) return;
+      // compute the next available index number for the side
+      var i = 0;
+      while (node.findPort(side + i.toString()) !== node) i++;
+      // now this new port name is unique within the whole Node because of the side prefix
+      var name = side + i.toString();
+      // get the Array of port data to be modified
+      var arr = node.data[side + "Array"];
+      if (arr) {
+        // create a new port data object
+        var newportdata = {
+          portId: name,
+          portColor: getPortColor()
+          // if you add port data properties here, you should copy them in copyPortData above
+        };
+        // and add it to the Array of port data
+        myDiagram.model.insertArrayItem(arr, -1, newportdata);
+      }
+    });
+    this.myDiagramComponent.diagram.commitTransaction("addPort");
+  }
 }

@@ -1,12 +1,11 @@
 .myDiagramDiv {
   background: whitesmoke;
-  width: 700px;
-  height: 300px;
+  width: 1000px;
+  height: 500px;
   border: 1px solid black;
 }
 
 .left {
-  float: left;
   padding: 5px;
   margin: 5px;
 }
@@ -19,4 +18,9 @@
 
 .clear {
   clear: both;
+}
+
+.btn{
+  margin-right: 5px;
+  margin-bottom: 5px;
 }

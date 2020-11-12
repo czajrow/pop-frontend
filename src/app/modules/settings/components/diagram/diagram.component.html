@@ -5,11 +5,17 @@
       (modelChange)='diagramModelChange($event)'>
     </gojs-diagram>
   </div>
-<div>
-  <button id="SaveButton" (click)="save()">Save</button>
-  <button (click)="load()">Load</button>
+  <div class="left">
+    Add port to selected node:
+    <button type="button" class="btn btn-light" (click)="addPort('top')">Top</button>
+    <button type="button" class="btn btn-light" (click)="addPort('bottom')">Bottom</button>
+    <button type="button" class="btn btn-light" (click)="addPort('left')">Left</button>
+    <button type="button" class="btn btn-light" (click)="addPort('right')">Right</button>
+  </div>
+<div class="left">
+  <button type="button" class="btn btn-light" id="SaveButton" (click)="save()">Save</button>
+  <button type="button" class="btn btn-light" (click)="load()">Load</button>
   Diagram Model saved in JSON format:
-</div>
 <textarea id="mySavedModel" style="width:100%;height:250px">{ "class": "GraphLinksModel",
   "copiesArrays": true,
   "copiesArrayObjects": true,
@@ -32,3 +38,4 @@
 {"from":"1", "to":"4", "fromPort":"bottom0", "toPort":"left0", "key":-6}
  ]}
     </textarea>
+  </div>
