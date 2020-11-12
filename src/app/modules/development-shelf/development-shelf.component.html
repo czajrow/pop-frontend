@@ -1,1 +1,7 @@
-<p>development-shelf works!</p>
+<div class="app-development-shelf__app-container">
+  <app-application
+    *ngFor="let app of apps"
+    [app]="app"
+  >
+  </app-application>
+</div>

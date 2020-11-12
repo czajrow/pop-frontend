@@ -19,6 +19,10 @@ const routes: Routes = [
     loadChildren: () => import('@/pages/development-shelf-page/development-shelf-page.module').then(m => m.DevelopmentShelfPageModule),
   },
   {
+    path: 'application-details',
+    loadChildren: () => import('@/pages/application-details-page/application-details-page.module').then(m => m.ApplicationDetailsPageModule),
+  },
+  {
     path: '**',
     redirectTo: 'home',
   }
