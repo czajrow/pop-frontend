@@ -1,22 +1,24 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SettingsPageComponent } from './settings-page.component';
 import {RouterModule, Routes} from '@angular/router';
 import {SettingsModule} from '../../modules/settings/settings.module';
+import { DiagramPageComponent } from './diagram-page.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: SettingsPageComponent,
+    component: DiagramPageComponent,
   }
 ];
 
 @NgModule({
-  declarations: [SettingsPageComponent],
+  declarations: [
+    DiagramPageComponent,
+  ],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
     SettingsModule,
   ]
 })
-export class SettingsPageModule { }
+export class DiagramPageModule { }

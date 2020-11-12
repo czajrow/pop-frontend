@@ -20,9 +20,19 @@ export class SidebarComponent implements OnInit {
       icon: 'home',
     },
     {
-      title: 'Settings',
-      link: '/settings',
-      icon: 'settings'
+      title: 'Diagram',
+      link: '/diagram',
+      icon: 'diagram'
+    },
+    {
+      title: 'Computation Unit Shelf',
+      link: '/computation-unit-shelf',
+      icon: 'computation-unit-shelf'
+    },
+    {
+      title: 'Development Shelf',
+      link: '/development-shelf',
+      icon: 'development-shelf'
     },
   ];
 

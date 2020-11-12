@@ -4,13 +4,13 @@ import { DataSyncService, DiagramComponent, PaletteComponent } from 'gojs-angula
 import * as _ from 'lodash';
 
 @Component({
-  selector: 'app-diagram',
-  templateUrl: './diagram.component.html',
-  styleUrls: ['./diagram.component.scss'],
+  selector: 'app-diagram-editor',
+  templateUrl: './diagram-editor.component.html',
+  styleUrls: ['./diagram-editor.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
 
-export class DiagramBuilderComponent {
+export class DiagramEditorComponent {
 
 
   @ViewChild('myDiagram', { static: true }) public myDiagramComponent: DiagramComponent;
@@ -376,7 +376,7 @@ export class DiagramBuilderComponent {
     this.observedDiagram = this.myDiagramComponent.diagram;
     this.cdr.detectChanges(); // IMPORTANT: without this, Angular will throw ExpressionChangedAfterItHasBeenCheckedError (dev mode only)
 
-    const appComp: DiagramBuilderComponent = this;
+    const appComp: DiagramEditorComponent = this;
     // listener for inspector
     this.myDiagramComponent.diagram.addDiagramListener('ChangedSelection', function (e) {
       if (e.diagram.selection.count === 0) {
