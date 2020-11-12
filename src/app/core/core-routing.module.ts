@@ -11,6 +11,14 @@ const routes: Routes = [
     loadChildren: () => import('@/pages/diagram-page/diagram-page.module').then(m => m.DiagramPageModule),
   },
   {
+    path: 'computation-unit-shelf',
+    loadChildren: () => import('@/pages/computation-unit-shelf-page/computation-unit-shelf-page.module').then(m => m.ComputationUnitShelfPageModule),
+  },
+  {
+    path: 'development-shelf',
+    loadChildren: () => import('@/pages/development-shelf-page/development-shelf-page.module').then(m => m.DevelopmentShelfPageModule),
+  },
+  {
     path: '**',
     redirectTo: 'home',
   }

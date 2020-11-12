@@ -24,6 +24,16 @@ export class SidebarComponent implements OnInit {
       link: '/diagram',
       icon: 'diagram'
     },
+    {
+      title: 'Computation Unit Shelf',
+      link: '/computation-unit-shelf',
+      icon: 'computation-unit-shelf'
+    },
+    {
+      title: 'Development Shelf',
+      link: '/development-shelf',
+      icon: 'development-shelf'
+    },
   ];
 
   constructor() {
