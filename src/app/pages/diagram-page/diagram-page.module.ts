@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {RouterModule, Routes} from '@angular/router';
-import {SettingsModule} from '../../modules/settings/settings.module';
+import {DiagramModule} from '../../modules/diagram/diagram.module';
 import { DiagramPageComponent } from './diagram-page.component';
 
 const routes: Routes = [
@@ -18,7 +18,7 @@ const routes: Routes = [
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
-    SettingsModule,
+    DiagramModule,
   ]
 })
 export class DiagramPageModule { }
