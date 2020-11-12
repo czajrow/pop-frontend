@@ -22,6 +22,8 @@
     "@angular/router": "~10.0.6",
     "angular-cli-ghpages": "^0.6.2",
     "bootstrap": "^4.5.2",
+    "gojs": "^2.1.29",
+    "gojs-angular": "^1.0.10",
     "rxjs": "~6.5.5",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.3"
