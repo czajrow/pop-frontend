@@ -7,8 +7,8 @@ const routes: Routes = [
     loadChildren: () => import('@/pages/home-page/home-page.module').then(m => m.HomePageModule),
   },
   {
-    path: 'settings',
-    loadChildren: () => import('@/pages/settings-page/settings-page.module').then(m => m.SettingsPageModule),
+    path: 'diagram',
+    loadChildren: () => import('@/pages/diagram-page/diagram-page.module').then(m => m.DiagramPageModule),
   },
   {
     path: '**',
