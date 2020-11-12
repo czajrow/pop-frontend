@@ -23,6 +23,10 @@ const routes: Routes = [
     loadChildren: () => import('@/pages/application-details-page/application-details-page.module').then(m => m.ApplicationDetailsPageModule),
   },
   {
+    path: 'computation-unit-details',
+    loadChildren: () => import('@/pages/computation-unit-details-page/computation-unit-details-page.module').then(m => m.ComputationUnitDetailsPageModule),
+  },
+  {
     path: '**',
     redirectTo: 'home',
   }

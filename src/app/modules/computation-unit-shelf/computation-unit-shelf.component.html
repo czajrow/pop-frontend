@@ -1,1 +1,7 @@
-<p>computation-unit-shelf works!</p>
+<div class="app-development-shelf__app-container">
+  <app-computation-unit
+    *ngFor="let unit of computationUnits"
+    [computationUnit]="unit"
+  >
+  </app-computation-unit>
+</div>
