@@ -4,12 +4,11 @@ import { SettingsComponent } from './settings.component';
 import {SectionModule} from '../../shared/section/section.module';
 import { DiagramBuilderComponent } from './components/diagram/diagram.component';
 import { GojsAngularModule } from 'gojs-angular';
-import { InspectorComponent } from './components/diagram/inspector/inspector.component';
 
 
 
 @NgModule({
-    declarations: [SettingsComponent, DiagramBuilderComponent, InspectorComponent],
+    declarations: [SettingsComponent, DiagramBuilderComponent],
     exports: [
         SettingsComponent
     ],
