@@ -1,0 +1,15 @@
+<div
+  (click)="onClick()"
+  class="app-application__container"
+>
+  <h6>{{ app?.name }}</h6>
+  <p>{{ app?.description }}</p>
+  <div class="d-flex justify-content-center">
+    <img
+      [src]="app?.imageUrl"
+      alt="App's Image"
+      class="app-application__image"
+    >
+  </div>
+
+</div>
