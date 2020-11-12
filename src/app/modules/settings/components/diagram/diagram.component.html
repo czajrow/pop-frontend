@@ -1,35 +1,39 @@
-<div class="left">
-    Diagram
-    <gojs-diagram #myDiagram [initDiagram]='initDiagram' [nodeDataArray]='diagramNodeData' [linkDataArray]='diagramLinkData'
-      [divClassName]='diagramDivClassName' [modelData]='diagramModelData' [skipsDiagramUpdate]='skipsDiagramUpdate'
-      (modelChange)='diagramModelChange($event)'>
-    </gojs-diagram>
-  </div>
-  <div class="left">
-    Add port to selected node:
-    <button type="button" class="btn btn-light" (click)="addPort('top')">Top</button>
-    <button type="button" class="btn btn-light" (click)="addPort('bottom')">Bottom</button>
-    <button type="button" class="btn btn-light" (click)="addPort('left')">Left</button>
-    <button type="button" class="btn btn-light" (click)="addPort('right')">Right</button>
-  </div>
-<div class="left">
+<app-section>
+  Diagram
+  <gojs-diagram #myDiagram [initDiagram]='initDiagram' [nodeDataArray]='diagramNodeData'
+                [linkDataArray]='diagramLinkData'
+                [divClassName]='diagramDivClassName' [modelData]='diagramModelData'
+                [skipsDiagramUpdate]='skipsDiagramUpdate'
+                (modelChange)='diagramModelChange($event)'>
+  </gojs-diagram>
+  <hr>
+  Add port to selected node:
+  <button type="button" class="btn btn-secondary" (click)="addPort('top')">Top</button>
+  <button type="button" class="btn btn-secondary" (click)="addPort('bottom')">Bottom</button>
+  <button type="button" class="btn btn-secondary" (click)="addPort('left')">Left</button>
+  <button type="button" class="btn btn-secondary" (click)="addPort('right')">Right</button>
+</app-section>
+<app-section>
   <button type="button" class="btn btn-light" id="SaveButton" (click)="save()">Save</button>
   <button type="button" class="btn btn-light" (click)="load()">Load</button>
   Diagram Model saved in JSON format:
-<textarea id="mySavedModel" style="width:100%;height:250px">{ "class": "GraphLinksModel",
+  <textarea id="mySavedModel" style="width:100%;height:250px">{ "class": "GraphLinksModel",
   "copiesArrays": true,
   "copiesArrayObjects": true,
   "linkKeyProperty": "key",
   "linkFromPortIdProperty": "fromPort",
   "linkToPortIdProperty": "toPort",
   "modelData": {"prop":"value"},
-  "nodeDataArray": [ 
-{"key":"1", "name":"Unit one", "color":"lightblue", "leftArray":[], "rightArray":[ {"portId":"right0", "portColor":"#e43f5a"} ], "topArray":[], "bottomArray":[ {"portId":"bottom0", "portColor":"#59405c"} ], "loc":"-115 39"},
-{"key":"2", "name":"Unit two", "color":"orange", "leftArray":[ {"portId":"left0", "portColor":"#322f3d"} ], "rightArray":[], "topArray":[], "bottomArray":[ {"portId":"bottom0", "portColor":"#1b1b2f"} ], "loc":"157 12"},
-{"key":"3", "name":"Unit three", "color":"lightgreen", "leftArray":[], "rightArray":[ {"portId":"right0", "portColor":"#4b5d67"} ], "topArray":[ {"portId":"top0", "portColor":"#1f4068"} ], "bottomArray":[], "loc":"-36 182"},
-{"key":"4", "name":"Unit four", "color":"pink", "leftArray":[ {"portId":"left0", "portColor":"#e43f5a"} ], "rightArray":[], "topArray":[ {"portId":"top0", "portColor":"#322f3d"} ], "bottomArray":[], "loc":"210.5 148"}
- ],
-  "linkDataArray": [ 
+  "nodeDataArray": [
+{"key":"1", "name":"Unit one", "color":"lightblue", "leftArray":[], "rightArray":[ {
+    "portId":"right0", "portColor":"#e43f5a"} ], "topArray":[], "bottomArray":[ {"portId":"bottom0", "portColor":"#59405c"} ], "loc":"-115 39"},
+      {"key":"2", "name":"Unit two", "color":"orange", "leftArray":[ {"portId":"left0", "portColor":"#322f3d"} ], "rightArray":[], "topArray":[], "bottomArray":[ {"portId":"bottom0", "portColor":"#1b1b2f"} ], "loc":"157 12"}
+    ,
+{"key":"3", "name":"Unit three", "color":"lightgreen", "leftArray":[], "rightArray":[ {
+    "portId":"right0", "portColor":"#4b5d67"} ], "topArray":[ {"portId":"top0", "portColor":"#1f4068"} ], "bottomArray":[], "loc":"-36 182"},
+      {"key":"4", "name":"Unit four", "color":"pink", "leftArray":[ {"portId":"left0", "portColor":"#e43f5a"} ], "rightArray":[], "topArray":[ {"portId":"top0", "portColor":"#322f3d"} ], "bottomArray":[], "loc":"210.5 148"}
+      ],
+  "linkDataArray": [
 {"from":"1", "to":"2", "fromPort":"right0", "toPort":"left0", "key":-1},
 {"from":"3", "to":"2", "fromPort":"top0", "toPort":"left0", "key":-2},
 {"from":"1", "to":"4", "fromPort":"right0", "toPort":"top0", "key":-3},
@@ -38,4 +42,4 @@
 {"from":"1", "to":"4", "fromPort":"bottom0", "toPort":"left0", "key":-6}
  ]}
     </textarea>
-  </div>
+</app-section>
