@@ -4,14 +4,14 @@ import { ComputationUnitShelfComponent } from './computation-unit-shelf.componen
 import { ComputationUnitComponent } from './components/computation-unit/computation-unit.component';
 
 
-
 @NgModule({
-    declarations: [ComputationUnitShelfComponent, ComputationUnitComponent],
-    exports: [
-        ComputationUnitShelfComponent
-    ],
-    imports: [
-        CommonModule
-    ]
+  declarations: [ComputationUnitShelfComponent, ComputationUnitComponent],
+  exports: [
+    ComputationUnitShelfComponent
+  ],
+  imports: [
+    CommonModule,
+  ]
 })
-export class ComputationUnitShelfModule { }
+export class ComputationUnitShelfModule {
+}

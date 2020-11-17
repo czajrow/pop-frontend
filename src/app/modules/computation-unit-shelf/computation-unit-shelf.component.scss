@@ -1,0 +1,35 @@
+@import "src/assets/styles/variables";
+
+:host {
+  display: block;
+}
+
+.app-development-shelf {
+
+  &__units-container {
+    margin-right: 2 * $mainsize;
+  }
+
+  &__new-unit-box {
+    background-color: white;
+    border: 2px solid gray;
+    border-radius: 3 * $mainsize;
+    width: 100%;
+    height: fit-content;
+    margin: $mainsize;
+    cursor: pointer;
+    text-align: center;
+
+    &__new {
+      font-size: 2em;
+      margin: 0;
+      padding: 0;
+    }
+
+    &:hover {
+      border: 2px solid transparent;
+    }
+  }
+
+
+}

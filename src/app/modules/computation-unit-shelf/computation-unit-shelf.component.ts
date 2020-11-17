@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ComputationUnitData } from './components/computation-unit/computation-unit.component';
+import { ClustersService } from './services/clusters.service';
 
 @Component({
   selector: 'app-computation-unit-shelf',
@@ -10,22 +11,19 @@ export class ComputationUnitShelfComponent implements OnInit {
 
   public computationUnits: ComputationUnitData[];
 
-  constructor() {
-    this.computationUnits = this.generateComputationUnits();
+  constructor(
+    private readonly _clustersService: ClustersService,
+  ) {
+    this.computationUnits = this._clustersService.computationUnits;
   }
 
   ngOnInit(): void {
   }
 
-  private generateComputationUnits(): ComputationUnitData[] {
-    const result: ComputationUnitData[] = [];
-    for (const i of [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]) {
-      result.push({
-        id: `${i}`,
-        name: `Computation Unit ${i}`,
-      });
-    }
-    return result;
+  onCreateNewCluster(): void {
+    this._clustersService.createCluster().subscribe(response => {
+      console.log(response);
+    });
   }
 
 }
