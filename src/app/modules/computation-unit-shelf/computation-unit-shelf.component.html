@@ -12,60 +12,60 @@
   </div> -->
   <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit(checkoutForm.value, $event)" class="form-group">
 
-    <div>
-      <label for="name">
+    <div class="divForm">
+      <label class="labelForm" for="name">
         Name
       </label>
-      <input id="name" type="text" formControlName="name">
+      <input class="inputForm" id="name" type="text" formControlName="name">
     </div>
   
-    <div>
-      <label for="cpuCoreCount">
+    <div class="divForm">
+      <label class="labelForm" for="cpuCoreCount">
         cpuCoreCount
       </label>
-      <input id="cpuCoreCount" type="number" formControlName="cpuCoreCount">
+      <input class="inputForm" id="cpuCoreCount" type="number" formControlName="cpuCoreCount">
     </div>
 
-    <div>
-      <label for="cpuClockSpeedInGHz">
+    <div class="divForm">
+      <label class="labelForm" for="cpuClockSpeedInGHz">
         cpuClockSpeedInGHz
       </label>
-      <input id="cpuClockSpeedInGHz" type="number" formControlName="cpuClockSpeedInGHz">
+      <input class="inputForm" id="cpuClockSpeedInGHz" type="number" formControlName="cpuClockSpeedInGHz">
     </div>
 
-    <div>
-      <label for="ramInGB">
+    <div class="divForm">
+      <label class="labelForm" for="ramInGB">
         ramInGB
       </label>
-      <input id="ramInGB" type="number" formControlName="ramInGB">
+      <input class="inputForm" id="ramInGB" type="number" formControlName="ramInGB">
     </div>
 
-    <div>
-      <label for="gpuCoreClocksInGHz">
+    <div class="divForm">
+      <label class="labelForm" for="gpuCoreClocksInGHz">
         gpuCoreClocksInGHz
       </label>
-      <input id="gpuCoreClocksInGHz" type="number" formControlName="gpuCoreClocksInGHz">
+      <input class="inputForm" id="gpuCoreClocksInGHz" type="number" formControlName="gpuCoreClocksInGHz">
     </div>
 
-    <div>
-      <label for="inUse">
+    <div class="divForm">
+      <label class="labelForm" for="inUse">
         inUse
       </label>
-      <input id="inUse" type="checkbox" formControlName="inUse">
+      <input class="inputForm" id="inUse" type="checkbox" formControlName="inUse">
     </div>
 
-    <div>
-      <label for="duringDeactivation">
+    <div class="divForm">
+      <label class="labelForm" for="duringDeactivation">
         duringDeactivation
       </label>
-      <input id="duringDeactivation" type="checkbox" formControlName="duringDeactivation">
+      <input class="inputForm" id="duringDeactivation" type="checkbox" formControlName="duringDeactivation">
     </div>
 
-    <div>
-      <label for="expectedCalculationsFinishTime">
+    <div class="divForm">
+      <label class="labelForm" for="expectedCalculationsFinishTime">
         expectedCalculationsFinishTime
       </label>
-      <input id="expectedCalculationsFinishTime" type="date" formControlName="expectedCalculationsFinishTime">
+      <input class="inputForm" id="expectedCalculationsFinishTime" type="date" formControlName="expectedCalculationsFinishTime">
     </div>
 
     <button class="button" type="submit" class="btn btn-primary">Add</button>
