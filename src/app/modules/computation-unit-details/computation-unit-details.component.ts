@@ -50,9 +50,8 @@ export class ComputationUnitDetailsComponent implements OnInit {
     this._clustersService.createCluster(customerData).subscribe(response => {
       alert('Udało się dodać CCluster');
       console.warn('Your order has been submitted', customerData);
+      this._router.navigate(['computation-unit-shelf']);
     });
-
-    this._router.navigate(['computation-unit-shelf']);
   }
 
 }
