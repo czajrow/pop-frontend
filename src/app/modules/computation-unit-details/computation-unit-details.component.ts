@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { FormBuilder } from "@angular/forms";
 import { ClustersService } from "../computation-unit-shelf/services/clusters.service";
 
@@ -20,6 +20,7 @@ export class ComputationUnitDetailsComponent implements OnInit {
     private readonly _activatedRoute: ActivatedRoute,
     private readonly _formBuilder: FormBuilder,
     private readonly _clustersService: ClustersService,
+    private readonly _router: Router,
   ) {
     const id = this._activatedRoute.snapshot.paramMap.get('id');
 
@@ -61,7 +62,7 @@ export class ComputationUnitDetailsComponent implements OnInit {
       console.warn('Your order has been submitted', customerData);
     });
 
-
+    this._router.navigate(['computation-unit-shelf']);
   }
 
 }
