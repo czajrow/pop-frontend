@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
-import { FormBuilder } from "@angular/forms";
+import { FormBuilder, Validators } from "@angular/forms";
 import { ClustersService } from "../computation-unit-shelf/services/clusters.service";
 
 @Component({
@@ -30,14 +30,14 @@ export class ComputationUnitDetailsComponent implements OnInit {
     }
 
     this.checkoutForm = this._formBuilder.group({
-      name: '',
-      cpuCoreCount: 1,
-      cpuClockSpeedInGHz:  1.0,
-      ramInGB: 1,
-      gpuCoreClocksInGHz: 1.0,
-      inUse: true,
-      expectedCalculationsFinishTime: '',
-      duringDeactivation: true
+      name: ['', Validators.required],
+      cpuCoreCount: [1, Validators.required],
+      cpuClockSpeedInGHz:  [1.0, Validators.required],
+      ramInGB: [1, Validators.required],
+      gpuCoreClocksInGHz: [1.0, Validators.required],
+      inUse: [true, Validators.required],
+      expectedCalculationsFinishTime: ['', Validators.required],
+      duringDeactivation: [true, Validators.required],
     });
   }
 
@@ -49,16 +49,6 @@ export class ComputationUnitDetailsComponent implements OnInit {
     customerData.expectedCalculationsFinishTime = customerData.expectedCalculationsFinishTime + 'T00:00:00.000Z';
     this._clustersService.createCluster(customerData).subscribe(response => {
       alert('Udało się dodać CCluster');
-      this.checkoutForm = this._formBuilder.group({
-        name: '',
-        cpuCoreCount: 1,
-        cpuClockSpeedInGHz:  1.0,
-        ramInGB: 1,
-        gpuCoreClocksInGHz: 1.0,
-        inUse: true,
-        expectedCalculationsFinishTime: '',
-        duringDeactivation: true
-      });
       console.warn('Your order has been submitted', customerData);
     });
 
