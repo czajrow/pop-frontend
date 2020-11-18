@@ -61,7 +61,7 @@
       <input class="inputForm" id="expectedCalculationsFinishTime" type="date" formControlName="expectedCalculationsFinishTime">
     </div>
 
-    <button class="button" type="submit" class="btn btn-primary">Add</button>
+    <button [disabled]="checkoutForm.invalid" class="button" type="submit" class="btn btn-primary">Add</button>
 
   </form>
 </ng-template>

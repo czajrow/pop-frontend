@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
-import { FormBuilder, Validators } from "@angular/forms";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ClustersService } from "../computation-unit-shelf/services/clusters.service";
 
 @Component({
@@ -11,7 +11,7 @@ import { ClustersService } from "../computation-unit-shelf/services/clusters.ser
 export class ComputationUnitDetailsComponent implements OnInit {
 
   items;
-  checkoutForm;
+  checkoutForm: FormGroup;
 
   public _id: string;
   public readonly _isNew: boolean;
