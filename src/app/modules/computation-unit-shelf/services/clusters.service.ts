@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@angular/core';
 import { ComputationUnitData } from '../components/computation-unit/computation-unit.component';
 import { tap } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 const CLUSTERS_URL = 'http://localhost:8000/imanageccluster';
@@ -42,7 +42,14 @@ export class ClustersService {
     //   tap(response => console.log(response)),
     // );
 
-    return this.http.request('POST', CLUSTERS_URL, options)
+    return this.http.request('POST', CLUSTERS_URL, options).pipe(
+      tap(response => {
+        this.computationUnits.push({
+          id: response?.id,
+          name: response?.name,
+        });
+      }),
+    );
   }
 
   // private generateComputationUnits(): ComputationUnitData[] {
