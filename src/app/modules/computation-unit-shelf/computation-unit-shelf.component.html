@@ -4,10 +4,71 @@
     [computationUnit]="unit"
   >
   </app-computation-unit>
-  <div
+  <!-- <div
     (click)="onCreateNewCluster()"
     class="app-development-shelf__new-unit-box"
   >
     <span class="app-development-shelf__new-unit-box__new">+</span>
-  </div>
+  </div> -->
+  <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit(checkoutForm.value, $event)" class="form-group">
+
+    <div>
+      <label for="name">
+        Name
+      </label>
+      <input id="name" type="text" formControlName="name">
+    </div>
+  
+    <div>
+      <label for="cpuCoreCount">
+        cpuCoreCount
+      </label>
+      <input id="cpuCoreCount" type="number" formControlName="cpuCoreCount">
+    </div>
+
+    <div>
+      <label for="cpuClockSpeedInGHz">
+        cpuClockSpeedInGHz
+      </label>
+      <input id="cpuClockSpeedInGHz" type="number" formControlName="cpuClockSpeedInGHz">
+    </div>
+
+    <div>
+      <label for="ramInGB">
+        ramInGB
+      </label>
+      <input id="ramInGB" type="number" formControlName="ramInGB">
+    </div>
+
+    <div>
+      <label for="gpuCoreClocksInGHz">
+        gpuCoreClocksInGHz
+      </label>
+      <input id="gpuCoreClocksInGHz" type="number" formControlName="gpuCoreClocksInGHz">
+    </div>
+
+    <div>
+      <label for="inUse">
+        inUse
+      </label>
+      <input id="inUse" type="checkbox" formControlName="inUse">
+    </div>
+
+    <div>
+      <label for="duringDeactivation">
+        duringDeactivation
+      </label>
+      <input id="duringDeactivation" type="checkbox" formControlName="duringDeactivation">
+    </div>
+
+    <div>
+      <label for="expectedCalculationsFinishTime">
+        expectedCalculationsFinishTime
+      </label>
+      <input id="expectedCalculationsFinishTime" type="date" formControlName="expectedCalculationsFinishTime">
+    </div>
+
+    <button class="button" type="submit" class="btn btn-primary">Add</button>
+  
+  </form>
 </div>
