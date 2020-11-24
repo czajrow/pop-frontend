@@ -1,5 +1,6 @@
 <div *ngIf="!_isNew; else newClusterForm">
-  <h1>App id: {{ _id }}</h1>
+  <h1>Cluster id: {{ _id }}</h1>
+  <h1>Cluster name: {{ _cluster?.name || 'unknown' }}</h1>
 </div>
 
 <ng-template #newClusterForm>

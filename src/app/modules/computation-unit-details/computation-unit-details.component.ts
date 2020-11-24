@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from "@angular/router";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { ClustersService } from "../computation-unit-shelf/services/clusters.service";
+import { ActivatedRoute, Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ClustersService } from '../computation-unit-shelf/services/clusters.service';
+import { ComputationUnitData } from '../computation-unit-shelf/components/computation-unit/computation-unit.component';
 
 @Component({
   selector: 'app-computation-unit-details',
@@ -15,6 +16,7 @@ export class ComputationUnitDetailsComponent implements OnInit {
 
   public _id: string;
   public readonly _isNew: boolean;
+  public _cluster: ComputationUnitData;
 
   constructor(
     private readonly _activatedRoute: ActivatedRoute,
@@ -29,10 +31,13 @@ export class ComputationUnitDetailsComponent implements OnInit {
       this._isNew = this._id === 'new';
     }
 
+    this._cluster = _clustersService.computationUnits.find(cluster => cluster.id === this._id);
+    console.log(this._id, _clustersService.computationUnits);
+
     this.checkoutForm = this._formBuilder.group({
       name: ['', Validators.required],
       cpuCoreCount: [1, Validators.required],
-      cpuClockSpeedInGHz:  [1.0, Validators.required],
+      cpuClockSpeedInGHz: [1.0, Validators.required],
       ramInGB: [1, Validators.required],
       gpuCoreClocksInGHz: [1.0, Validators.required],
       inUse: [true, Validators.required],
@@ -47,11 +52,14 @@ export class ComputationUnitDetailsComponent implements OnInit {
   onSubmit(customerData, event): void {
     event.preventDefault();
     customerData.expectedCalculationsFinishTime = customerData.expectedCalculationsFinishTime + 'T00:00:00.000Z';
-    this._clustersService.createCluster(customerData).subscribe(response => {
-      alert('Udało się dodać CCluster');
-      console.warn('Your order has been submitted', customerData);
-      this._router.navigate(['computation-unit-shelf']);
-    });
+    this._clustersService.createCluster(customerData).subscribe(
+      response => {
+        this._router.navigate(['computation-unit-shelf']);
+      },
+      error => {
+        alert(error?.error?.detail || 'Unknown error appeared...');
+      }
+    );
   }
 
 }

@@ -18,5 +18,9 @@
     &:hover {
       border: 2px solid transparent;
     }
+
+    &__highlight {
+      background-color: yellow;
+    }
   }
 }
