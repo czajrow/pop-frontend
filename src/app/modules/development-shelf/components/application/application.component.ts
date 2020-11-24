@@ -2,11 +2,16 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 
 export interface ApplicationData {
-  id: string;
+  version: number;
   name: string;
-  description: string;
-  imageUrl: string;
+  executionDiagram: string;
+  price: string;
+  iconURL: string;
+  inputDataFormatDescription: string;
+  outputDataFormatDescription: string;
+  id: number;
 }
+
 
 @Component({
   selector: 'app-application',

@@ -31,17 +31,6 @@ export class ClustersService {
       duringDeactivation: customerData.duringDeactivation
     };
 
-    // const body = {
-    //   name: 'Test',
-    //   cpuCoreCount: 1,
-    //   cpuClockSpeedInGHz: 0.1,
-    //   ramInGB: 1,
-    //   gpuCoreClocksInGHz: 1.0,
-    //   inUse: true,
-    //   expectedCalculationsFinishTime: '2021-11-16T22:32:36.977Z',
-    //   duringDeactivation: true,
-    // };
-
     return this.http.post(CLUSTERS_URL, body).pipe(
       tap(response => {
         this.computationUnits.push({
