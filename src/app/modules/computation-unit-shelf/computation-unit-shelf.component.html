@@ -1,7 +1,14 @@
-<div class="app-development-shelf__app-container">
+<div class="app-development-shelf__units-container">
   <app-computation-unit
-    *ngFor="let unit of computationUnits"
+    *ngFor="let unit of computationUnits; let i = index"
     [computationUnit]="unit"
+    [highlight]="new === i"
   >
   </app-computation-unit>
+  <div
+    (click)="onCreateNewCluster()"
+    class="app-development-shelf__new-unit-box"
+  >
+    <span class="app-development-shelf__new-unit-box__new">+</span>
+  </div>
 </div>

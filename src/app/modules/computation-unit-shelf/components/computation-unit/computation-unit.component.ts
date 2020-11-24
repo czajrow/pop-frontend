@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Router } from "@angular/router";
+import { Router } from '@angular/router';
 
 export interface ComputationUnitData {
   id: string;
@@ -14,6 +14,7 @@ export interface ComputationUnitData {
 export class ComputationUnitComponent implements OnInit {
 
   @Input() computationUnit: ComputationUnitData;
+  @Input() highlight = false;
 
   constructor(
     private readonly _router: Router,

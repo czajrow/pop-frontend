@@ -1,6 +1,7 @@
 <div
+  [ngClass]="{'app-computation-unit__container__highlight': highlight}"
   (click)="onClick()"
   class="app-computation-unit__container"
 >
-  <h6 class="m-0">{{ computationUnit?.name }}</h6>
+  <h6 class="m-0">Cluster name: {{ computationUnit?.name }}</h6>
 </div>
