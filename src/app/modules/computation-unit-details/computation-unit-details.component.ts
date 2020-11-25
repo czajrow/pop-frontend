@@ -54,6 +54,7 @@ export class ComputationUnitDetailsComponent implements OnInit {
     customerData.expectedCalculationsFinishTime = customerData.expectedCalculationsFinishTime + 'T00:00:00.000Z';
     this._clustersService.createCluster(customerData).subscribe(
       response => {
+        alert("Dodano CCluster!");
         this._router.navigate(['computation-unit-shelf']);
       },
       error => {

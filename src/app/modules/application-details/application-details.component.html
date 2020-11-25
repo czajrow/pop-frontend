@@ -1,5 +1,13 @@
 <div *ngIf="!_isNew; else newAppForm">
-  <h1>App id: {{ _id }}</h1>
+  <img
+      [src]="_app?.iconURL"
+      alt="App's Image"
+      class="app-application__image"
+    >
+  <h1>App id: {{ _app?.id }}</h1>
+  <h1>Name: {{ _app?.name }}</h1>
+  <h1>Version: {{ _app?.version }}</h1>
+  <h1>Price: {{ _app?.price }}</h1>
 </div>
 
 <ng-template #newAppForm>

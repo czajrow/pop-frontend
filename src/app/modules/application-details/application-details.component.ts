@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AppsService } from '../development-shelf/services/apps.service';
+import { ApplicationData } from '../development-shelf/components/application/application.component'
 
 @Component({
   selector: 'app-application-details',
@@ -14,6 +15,7 @@ export class ApplicationDetailsComponent implements OnInit {
   checkoutForm: FormGroup;
 
   public _id: string;
+  public _app: ApplicationData;
   public readonly _isNew: boolean;
 
 
@@ -28,6 +30,18 @@ export class ApplicationDetailsComponent implements OnInit {
     if (id) {
       this._id = id;
       this._isNew = this._id === 'new';
+    }
+
+    if(id !== 'new'){
+      this._appsService.getApp(id).subscribe(
+        response => {
+          this._app = response;
+          console.log(this._app)
+        },
+        error => {
+          alert(error?.error?.detail || 'Unknown error appeared...');
+        }
+      );
     }
 
     this.checkoutForm = this._formBuilder.group({
@@ -49,6 +63,7 @@ export class ApplicationDetailsComponent implements OnInit {
     customerData.expectedCalculationsFinishTime = customerData.expectedCalculationsFinishTime + 'T00:00:00.000Z';
     this._appsService.createApp(customerData).subscribe(
       response => {
+        alert("Dodano ComputationUnit!");
         this._router.navigate(['development-shelf']);
       },
       error => {

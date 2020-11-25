@@ -12,6 +12,7 @@ const APPS_URL = 'http://localhost:8000/imanageappIManageApp';
 export class AppsService {
 
   private appsArray: ApplicationData[] = [];
+  private appDetails: ApplicationData;
   private appsSubject: BehaviorSubject<ApplicationData[]> = new BehaviorSubject<ApplicationData[]>([]);
   public apps: Observable<ApplicationData[]> = this.appsSubject.asObservable();
 
@@ -59,6 +60,13 @@ export class AppsService {
       this.appsArray = a as ApplicationData[];
       this.appsSubject.next(this.appsArray);
     });
+  }
+
+  public getApp(id): Observable<any> {
+    const url = APPS_URL + '/' + id?.toString();
+    return this.http.get(url).pipe(
+      tap(response => response),
+    )
   }
 
   public deleteApp(id: number): void {

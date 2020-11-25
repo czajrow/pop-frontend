@@ -5,24 +5,31 @@
 }
 
 .app-development-shelf {
-  &__app-container {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+
+  &__units-container {
+    margin-right: 2 * $mainsize;
   }
 
-  &__new-app {
+  &__new-unit-box {
     background-color: white;
     border: 2px solid gray;
     border-radius: 3 * $mainsize;
-    width: 200px;
-    height: 200px;
+    width: 100%;
+    height: fit-content;
     margin: $mainsize;
-    padding: 2 * $mainsize;
     cursor: pointer;
+    text-align: center;
+
+    &__new {
+      font-size: 2em;
+      margin: 0;
+      padding: 0;
+    }
 
     &:hover {
-      border: none;
+      border: 2px solid transparent;
     }
   }
+
+
 }

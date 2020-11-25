@@ -41,4 +41,11 @@ export class ClustersService {
       }),
     );
   }
+
+  public getCluster(id): Observable<any> {
+    const url = CLUSTERS_URL + '/' + id?.toString();
+    return this.http.get(url).pipe(
+      tap(response => response),
+    )
+  }
 }
