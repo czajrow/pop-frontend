@@ -34,17 +34,21 @@ export class AppsService {
 
     return this.http.post(APPS_URL, body).pipe(
       tap(response => {
-        this.appsArray.push({
-          version: response.version,
-          name: response.name,
-          executionDiagram: response.executionDiagram,
-          price: response.price,
-          iconURL: response.iconURL,
-          inputDataFormatDescription: response.inputDataFormatDescription,
-          outputDataFormatDescription: response.outputDataFormatDescription,
-          id: response.id,
-        });
-        this.appsSubject.next(this.appsArray);
+        if (response.detail) {
+          //
+        } else {
+          this.appsArray.push({
+            version: response.version,
+            name: response.name,
+            executionDiagram: response.executionDiagram,
+            price: response.price,
+            iconURL: response.iconURL,
+            inputDataFormatDescription: response.inputDataFormatDescription,
+            outputDataFormatDescription: response.outputDataFormatDescription,
+            id: response.id,
+          });
+          this.appsSubject.next(this.appsArray);
+        }
       }),
     );
   }
@@ -55,5 +59,18 @@ export class AppsService {
       this.appsArray = a as ApplicationData[];
       this.appsSubject.next(this.appsArray);
     });
+  }
+
+  public deleteApp(id: number): void {
+    const url = APPS_URL + '/' + id?.toString();
+    this.http.delete(url).subscribe(
+      a => {
+        console.log(a);
+        this.getApps();
+      },
+      error => {
+        console.error(error);
+      }
+    );
   }
 }
