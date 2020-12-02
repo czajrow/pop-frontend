@@ -34,6 +34,11 @@ export class SidebarComponent implements OnInit {
       link: '/development-shelf',
       icon: 'development-shelf'
     },
+    {
+      title: 'Computation Cluster Shelf',
+      link: '/computation-cluster-shelf',
+      icon: 'computation-cluster-shelf'
+    },
   ];
 
   constructor() {

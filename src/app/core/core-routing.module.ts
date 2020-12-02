@@ -19,6 +19,10 @@ const routes: Routes = [
     loadChildren: () => import('@/pages/development-shelf-page/development-shelf-page.module').then(m => m.DevelopmentShelfPageModule),
   },
   {
+    path: 'computation-cluster-shelf',
+    loadChildren: () => import('@/pages/computation-cluster-shelf-page/computation-cluster-shelf-page.module').then(m => m.ComputationClusterShelfPageModule),
+  },
+  {
     path: 'application-details',
     loadChildren: () => import('@/pages/application-details-page/application-details-page.module').then(m => m.ApplicationDetailsPageModule),
   },

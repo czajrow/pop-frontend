@@ -1,0 +1,8 @@
+<div class="app-computation-cluster-shelf__app-container">
+  <app-application
+    *ngFor="let app of apps"
+    [app]="app"
+    matTooltip="Info about the action"
+    aria-label="Button that displays a tooltip when focused or hovered over">
+  </app-application>
+</div>

@@ -1,0 +1,12 @@
+
+:host {
+  display: block;
+}
+
+.app-computation-cluster-shelf {
+  &__app-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+}
