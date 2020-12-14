@@ -1,12 +1,18 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
+import { AppsService } from '../../services/apps.service';
 
 export interface ApplicationData {
-  id: string;
+  version: number;
   name: string;
-  description: string;
-  imageUrl: string;
+  executionDiagram: string;
+  price: string;
+  iconURL: string;
+  inputDataFormatDescription: string;
+  outputDataFormatDescription: string;
+  id: number;
 }
+
 
 @Component({
   selector: 'app-application',
@@ -20,6 +26,7 @@ export class ApplicationComponent implements OnInit {
 
   constructor(
     private readonly _router: Router,
+    private readonly _appsService: AppsService,
   ) { }
 
   ngOnInit(): void {
@@ -27,6 +34,11 @@ export class ApplicationComponent implements OnInit {
 
   onClick(): void {
     this._router.navigate(['application-details', this.app?.id]);
+  }
+
+  onDelete(event: Event): void {
+    event.stopPropagation();
+    this._appsService.deleteApp(this.app?.id);
   }
 
 }

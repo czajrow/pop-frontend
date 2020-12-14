@@ -2,11 +2,19 @@
   (click)="onClick()"
   class="app-application__container"
 >
-  <h6>{{ app?.name }}</h6>
-  <p>{{ app?.description }}</p>
+  <div class="d-flex flex-row justify-content-between">
+    <h6>{{ app?.name }}</h6>
+    <button
+      (click)="onDelete($event)"
+      class="btn btn-danger"
+    >
+      Delete
+    </button>
+  </div>
+  <p>{{ app?.inputDataFormatDescription}}</p>
   <div class="d-flex justify-content-center">
     <img
-      [src]="app?.imageUrl"
+      [src]="app?.iconURL"
       alt="App's Image"
       class="app-application__image"
     >
