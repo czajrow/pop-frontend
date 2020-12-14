@@ -19,7 +19,7 @@ export class ClustersService {
   constructor(
     private readonly http: HttpClient,
   ) {
-    this.getClusters();
+    // this.getClusters(); TODO: uncomment when integrated
   }
 
   public createCluster(customerData: ComputationUnitData): Observable<any> {
