@@ -31,8 +31,8 @@ export class ComputationUnitDetailsComponent implements OnInit {
       this._isNew = this._id === 'new';
     }
 
-    this._cluster = _clustersService.computationUnits.find(cluster => cluster.id === this._id);
-    console.log(this._id, _clustersService.computationUnits);
+    this._cluster = _clustersService.computationUnitsArray.find(cluster => cluster.id === (+this._id));
+    console.log(this._id, _clustersService.computationUnitsArray);
 
     this.checkoutForm = this._formBuilder.group({
       name: ['', Validators.required],
@@ -40,8 +40,10 @@ export class ComputationUnitDetailsComponent implements OnInit {
       cpuClockSpeedInGHz: [1.0, Validators.required],
       ramInGB: [1, Validators.required],
       gpuCoreClocksInGHz: [1.0, Validators.required],
-      inUse: [true, Validators.required],
-      expectedCalculationsFinishTime: ['', Validators.required],
+      // inUse: [true, Validators.required],
+      // expectedCalculationsFinishTime: ['', Validators.required],
+      cpuUtilization: [1, Validators.required],
+      gpuUtilization: [1, Validators.required],
       duringDeactivation: [true, Validators.required],
     });
   }

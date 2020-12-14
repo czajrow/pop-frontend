@@ -17,7 +17,7 @@ export class DevelopmentShelfComponent implements OnInit {
     private readonly _router: Router,
   ) {
     // this.apps = this._appsService.apps;
-    this._appsService.apps.subscribe(a => {
+    this._appsService.apps$.subscribe(a => {
       this.apps = a;
     });
   }

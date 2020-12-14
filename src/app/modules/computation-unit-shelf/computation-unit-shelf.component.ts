@@ -21,7 +21,7 @@ export class ComputationUnitShelfComponent implements OnInit {
     private formBuilder: FormBuilder,
     private readonly _router: Router,
   ) {
-    this.computationUnits = this._clustersService.computationUnits;
+    this.computationUnits = this._clustersService.computationUnitsArray;
     this.checkoutForm = this.formBuilder.group({
       name: '',
       cpuCoreCount: 1,

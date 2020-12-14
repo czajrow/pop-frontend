@@ -12,9 +12,8 @@ const APPS_URL = 'http://localhost:8000/imanageappIManageApp';
 export class AppsService {
 
   private appsArray: ApplicationData[] = [];
-  private appDetails: ApplicationData;
   private appsSubject: BehaviorSubject<ApplicationData[]> = new BehaviorSubject<ApplicationData[]>([]);
-  public apps: Observable<ApplicationData[]> = this.appsSubject.asObservable();
+  public apps$: Observable<ApplicationData[]> = this.appsSubject.asObservable();
 
   constructor(
     private readonly http: HttpClient,
