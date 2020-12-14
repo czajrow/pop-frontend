@@ -55,7 +55,6 @@ export class AppsService {
   }
 
   public getApps(): void {
-
     this.http.get(APPS_URL).subscribe(a => {
       this.appsArray = a as ApplicationData[];
       this.appsSubject.next(this.appsArray);

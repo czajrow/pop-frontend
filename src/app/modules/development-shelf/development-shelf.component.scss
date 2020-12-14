@@ -6,6 +6,11 @@
 
 .app-development-shelf {
 
+  &__app-container {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
   &__units-container {
     margin-right: 2 * $mainsize;
   }
