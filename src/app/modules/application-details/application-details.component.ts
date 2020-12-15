@@ -79,7 +79,7 @@ export class ApplicationDetailsComponent implements OnInit {
         },
         error => {
           console.log(error);
-          alert(error?.error?.detail || 'Unknown error appeared...');
+          alert(error?.error?.detail || 'Url must be valid url');
         }
       );
     } else {
@@ -88,7 +88,7 @@ export class ApplicationDetailsComponent implements OnInit {
         this._router.navigate(['development-shelf']);
         }, error => {
           console.log(error);
-          alert(error?.error?.detail || 'Unknown error appeared...');
+          alert(error?.error?.detail || 'Url must be valid url');
         }
       );
     }
