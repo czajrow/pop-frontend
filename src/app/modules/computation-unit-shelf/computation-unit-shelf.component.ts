@@ -1,17 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ComputationUnitData } from './components/computation-unit/computation-unit.component';
 import { ClustersService } from './services/clusters.service';
 import { FormBuilder, FormsModule } from '@angular/forms';
 import { Router } from "@angular/router";
+import { Subscription } from "rxjs";
 
 @Component({
   selector: 'app-computation-unit-shelf',
   templateUrl: './computation-unit-shelf.component.html',
   styleUrls: ['./computation-unit-shelf.component.scss']
 })
-export class ComputationUnitShelfComponent implements OnInit {
+export class ComputationUnitShelfComponent implements OnInit, OnDestroy {
   items;
   checkoutForm;
+
+  private sub: Subscription;
 
   public computationUnits: ComputationUnitData[];
   public new: number = null;
@@ -21,7 +24,10 @@ export class ComputationUnitShelfComponent implements OnInit {
     private formBuilder: FormBuilder,
     private readonly _router: Router,
   ) {
-    this.computationUnits = this._clustersService.computationUnitsArray;
+    // this.computationUnits = this._clustersService.computationUnitsArray;
+    this.sub = this._clustersService.computationUnits$.subscribe(units => {
+      this.computationUnits = units;
+    });
     this.checkoutForm = this.formBuilder.group({
       name: '',
       cpuCoreCount: 1,
@@ -37,6 +43,10 @@ export class ComputationUnitShelfComponent implements OnInit {
   ngOnInit(): void {
     this.new = this._clustersService.newUnitId;
     this._clustersService.newUnitId = null;
+  }
+
+  ngOnDestroy(): void {
+    this.sub?.unsubscribe();
   }
 
   onCreateNewCluster(): void {

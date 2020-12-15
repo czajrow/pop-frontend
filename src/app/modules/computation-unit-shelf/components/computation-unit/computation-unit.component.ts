@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ClustersService } from '../../services/clusters.service';
 
 export interface ComputationUnitData {
   id: number;
@@ -25,6 +26,7 @@ export class ComputationUnitComponent implements OnInit {
 
   constructor(
     private readonly _router: Router,
+    private readonly _clustersService: ClustersService,
   ) { }
 
   ngOnInit(): void {
@@ -32,6 +34,12 @@ export class ComputationUnitComponent implements OnInit {
 
   onClick(): void {
     this._router.navigate(['computation-unit-details', this.computationUnit?.id]);
+  }
+
+  onDelete(event: Event): void {
+    event.stopPropagation();
+    this._clustersService.deleteCluster(this.computationUnit.id);
+    // this._router.navigate(['computation-unit-shelf']);
   }
 
 }

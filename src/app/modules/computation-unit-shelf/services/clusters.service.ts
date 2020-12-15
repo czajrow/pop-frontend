@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { ComputationUnitData } from '../components/computation-unit/computation-unit.component';
-import { map, tap } from 'rxjs/operators';
+import { map, switchMap, tap } from 'rxjs/operators';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
-const CLUSTERS_URL = 'http://localhost:8000/imanageccluster';
+const CLUSTERS_URL = 'http://localhost:8000/imanageccluster/';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +19,7 @@ export class ClustersService {
   constructor(
     private readonly http: HttpClient,
   ) {
-    // this.getClusters(); TODO: uncomment when integrated
+    this.getClusters();
   }
 
   public createCluster(customerData: ComputationUnitData): Observable<any> {
@@ -47,6 +47,15 @@ export class ClustersService {
     this.http.get(CLUSTERS_URL).subscribe(a => {
       this.computationUnitsArray = a as ComputationUnitData[];
       this.computationUnitsSubject.next(this.computationUnitsArray);
+    });
+  }
+
+  public deleteCluster(id): void {
+    const url = CLUSTERS_URL + id;
+    console.log('URL:', url);
+    this.http.delete(url).pipe(
+    ).subscribe(() => {
+      this.getClusters();
     });
   }
 

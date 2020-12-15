@@ -1,6 +1,13 @@
 <div *ngIf="!_isNew; else newClusterForm">
   <h1>Cluster id: {{ _id }}</h1>
-  <h1>Cluster name: {{ _cluster?.name || 'unknown' }}</h1>
+  <h1>Cluster name: {{ _cluster?.name }}</h1>
+  <h1>Cpu Clock Speed in GHz: {{ _cluster?.cpuClockSpeedInGHz }}</h1>
+  <h1>Cpu Core Count: {{ _cluster?.cpuCoreCount }}</h1>
+  <h1>Cpu Utilization: {{ _cluster?.cpuUtilization }}</h1>
+  <h1>During Deactivation: {{ _cluster?.duringDeactivation }}</h1>
+  <h1>Gpu Core Clocks in GHz: {{ _cluster?.gpuCoreClocksInGHz }}</h1>
+  <h1>Gpu Utilization: {{ _cluster?.gpuUtilization }}</h1>
+  <h1>Ram in GB: {{ _cluster?.ramInGB }}</h1>
 </div>
 
 <ng-template #newClusterForm>
