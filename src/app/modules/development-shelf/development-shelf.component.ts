@@ -20,6 +20,7 @@ export class DevelopmentShelfComponent implements OnInit {
     this._appsService.apps$.subscribe(a => {
       this.apps = a;
     });
+    this._appsService.getApps();
   }
 
   ngOnInit(): void {

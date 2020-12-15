@@ -1,13 +1,25 @@
 <div *ngIf="!_isNew; else newAppForm">
+  <button
+    (click)="_editMode = !_editMode"
+    class="btn btn-primary"
+  >
+    Edit
+  </button>
+  <hr>
   <img
       [src]="_app?.iconURL"
       alt="App's Image"
       class="app-application__image"
     >
-  <h1>App id: {{ _app?.id }}</h1>
-  <h1>Name: {{ _app?.name }}</h1>
-  <h1>Version: {{ _app?.version }}</h1>
-  <h1>Price: {{ _app?.price }}</h1>
+  <div *ngIf="!_editMode; else newAppForm">
+    <h1>App id: {{ _app?.id }}</h1>
+    <h1>Name: {{ _app?.name }}</h1>
+    <h1>Version: {{ _app?.version }}</h1>
+    <h1>Price: {{ _app?.price }}</h1>
+    <h1>InputData Format Description: {{ _app?.inputDataFormatDescription }}</h1>
+    <h1>Output Data Format Description: {{ _app?.outputDataFormatDescription }}</h1>
+    <h1>Application Diagram Id: {{ _app?.applicationDiagramId }}</h1>
+  </div>
 </div>
 
 <ng-template #newAppForm>
@@ -66,7 +78,13 @@
       <input class="inputForm" id="outputDataFormatDescription" type="text" formControlName="outputDataFormatDescription">
     </div>
 
-    <button [disabled]="checkoutForm.invalid" class="button" type="submit" class="btn btn-primary">Add</button>
+    <button
+      [disabled]="checkoutForm.invalid"
+      class="btn btn-primary"
+      type="submit"
+    >
+      {{ _id === 'new' ? 'Add' : 'Update' }}
+    </button>
 
   </form>
 </ng-template>

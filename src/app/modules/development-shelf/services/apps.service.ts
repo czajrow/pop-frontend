@@ -53,6 +53,45 @@ export class AppsService {
     );
   }
 
+  public updateApp(data): Observable<any> {
+    const body = {
+      version: data.version,
+      name: data.name,
+      applicationDiagramId: data.executionDiagram,
+      price: data.price,
+      iconURL: data.iconURL,
+      inputDataFormatDescription: data.inputDataFormatDescription,
+      outputDataFormatDescription: data.outputDataFormatDescription,
+    };
+
+    const url = APPS_URL + data?.id;
+
+    return this.http.put(url, body).pipe(
+      tap(response => {
+        if (response.detail) {
+          //
+        } else {
+          const updatedApp = this.appsArray.find(app => app.id === response.id);
+          const index = this.appsArray.indexOf(updatedApp);
+          if (updatedApp) {
+            this.appsArray.splice(index);
+            this.appsArray.push({
+              version: response.version,
+              name: response.name,
+              applicationDiagramId: response.executionDiagram,
+              price: response.price,
+              iconURL: response.iconURL,
+              inputDataFormatDescription: response.inputDataFormatDescription,
+              outputDataFormatDescription: response.outputDataFormatDescription,
+              id: response.id,
+            });
+            this.appsSubject.next(this.appsArray);          }
+
+        }
+      }),
+    );
+  }
+
   public getApps(): void {
     this.http.get(APPS_URL).subscribe(a => {
       this.appsArray = a as ApplicationData[];
