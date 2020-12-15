@@ -47,7 +47,7 @@ export class ApplicationDetailsComponent implements OnInit {
     this.checkoutForm = this._formBuilder.group({
       version: [1, Validators.required],
       name: ['', Validators.required],
-      executionDiagram: ['', Validators.required],
+      applicationDiagramId: ['', Validators.required],
       price: [1, Validators.required],
       iconURL: ['', Validators.required],
       inputDataFormatDescription: ['', Validators.required],

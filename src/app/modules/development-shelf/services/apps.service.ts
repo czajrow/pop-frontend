@@ -4,7 +4,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { ApplicationData } from '../components/application/application.component';
 
-const APPS_URL = 'http://localhost:8000/imanageappIManageApp';
+const APPS_URL = 'http://localhost:8000/IManageApp/';
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +25,7 @@ export class AppsService {
     const body = {
       version: data.version,
       name: data.name,
-      executionDiagram: data.executionDiagram,
+      applicationDiagramId: data.executionDiagram,
       price: data.price,
       iconURL: data.iconURL,
       inputDataFormatDescription: data.inputDataFormatDescription,
@@ -40,7 +40,7 @@ export class AppsService {
           this.appsArray.push({
             version: response.version,
             name: response.name,
-            executionDiagram: response.executionDiagram,
+            applicationDiagramId: response.executionDiagram,
             price: response.price,
             iconURL: response.iconURL,
             inputDataFormatDescription: response.inputDataFormatDescription,
@@ -64,7 +64,7 @@ export class AppsService {
     const url = APPS_URL + '/' + id?.toString();
     return this.http.get(url).pipe(
       tap(response => response),
-    )
+    );
   }
 
   public deleteApp(id: number): void {
