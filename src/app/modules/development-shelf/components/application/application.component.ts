@@ -3,14 +3,22 @@ import { Router } from "@angular/router";
 import { AppsService } from '../../services/apps.service';
 
 export interface ApplicationData {
+  // version: number;
+  // name: string;
+  // executionDiagram: string;
+  // price: string;
+  // iconURL: string;
+  // inputDataFormatDescription: string;
+  // outputDataFormatDescription: string;
+  // id: number;
+  id: number;
   version: number;
   name: string;
-  executionDiagram: string;
-  price: string;
   iconURL: string;
+  applicationDiagramId: number;
+  price: number;
   inputDataFormatDescription: string;
   outputDataFormatDescription: string;
-  id: number;
 }
 
 

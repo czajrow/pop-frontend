@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ComputationUnitData } from '../components/computation-unit/computation-unit.component';
-import { tap } from 'rxjs/operators';
-import { Observable} from 'rxjs';
+import { map, tap } from 'rxjs/operators';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
 const CLUSTERS_URL = 'http://localhost:8000/imanageccluster';
@@ -11,41 +11,49 @@ const CLUSTERS_URL = 'http://localhost:8000/imanageccluster';
 })
 export class ClustersService {
 
-  public computationUnits: ComputationUnitData[] = [];
+  public computationUnitsArray: ComputationUnitData[] = [];
+  private computationUnitsSubject: BehaviorSubject<ComputationUnitData[]> = new BehaviorSubject<ComputationUnitData[]>([]);
+  public computationUnits$: Observable<ComputationUnitData[]> = this.computationUnitsSubject.asObservable();
   public newUnitId: number = null;
 
   constructor(
     private readonly http: HttpClient,
   ) {
+    // this.getClusters(); TODO: uncomment when integrated
   }
 
-  public createCluster(customerData): Observable<any> {
+  public createCluster(customerData: ComputationUnitData): Observable<any> {
     const body = {
       name: customerData.name,
       cpuCoreCount: customerData.cpuCoreCount,
       cpuClockSpeedInGHz: customerData.cpuClockSpeedInGHz,
       ramInGB: customerData.ramInGB,
       gpuCoreClocksInGHz: customerData.gpuCoreClocksInGHz,
-      inUse: customerData.inUse,
-      expectedCalculationsFinishTime: customerData.expectedCalculationsFinishTime,
-      duringDeactivation: customerData.duringDeactivation
-    };
+      duringDeactivation: customerData.duringDeactivation,
+      cpuUtilization: customerData.cpuUtilization,
+      gpuUtilization: customerData.gpuUtilization,
+    } as Partial<ComputationUnitData>;
 
     return this.http.post(CLUSTERS_URL, body).pipe(
       tap(response => {
-        this.computationUnits.push({
-          id: response?.id.toString(),
-          name: response?.name,
-        });
-        this.newUnitId = this.computationUnits.length - 1;
+        this.computationUnitsArray.push(response);
+        this.newUnitId = this.computationUnitsArray.length - 1;
+        this.computationUnitsSubject.next(this.computationUnitsArray);
       }),
     );
   }
 
-  public getCluster(id): Observable<any> {
+  public getClusters(): void {
+    this.http.get(CLUSTERS_URL).subscribe(a => {
+      this.computationUnitsArray = a as ComputationUnitData[];
+      this.computationUnitsSubject.next(this.computationUnitsArray);
+    });
+  }
+
+  public getCluster(id): Observable<ComputationUnitData> {
     const url = CLUSTERS_URL + '/' + id?.toString();
     return this.http.get(url).pipe(
-      tap(response => response),
-    )
+      map(unit => unit as ComputationUnitData),
+    );
   }
 }

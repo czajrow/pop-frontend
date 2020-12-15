@@ -1,13 +1,25 @@
 <div *ngIf="!_isNew; else newAppForm">
+  <button
+    (click)="_editMode = !_editMode"
+    class="btn btn-primary"
+  >
+    Edit
+  </button>
+  <hr>
   <img
       [src]="_app?.iconURL"
       alt="App's Image"
       class="app-application__image"
     >
-  <h1>App id: {{ _app?.id }}</h1>
-  <h1>Name: {{ _app?.name }}</h1>
-  <h1>Version: {{ _app?.version }}</h1>
-  <h1>Price: {{ _app?.price }}</h1>
+  <div *ngIf="!_editMode; else newAppForm">
+    <h1>App id: {{ _app?.id }}</h1>
+    <h1>Name: {{ _app?.name }}</h1>
+    <h1>Version: {{ _app?.version }}</h1>
+    <h1>Price: {{ _app?.price }}</h1>
+    <h1>InputData Format Description: {{ _app?.inputDataFormatDescription }}</h1>
+    <h1>Output Data Format Description: {{ _app?.outputDataFormatDescription }}</h1>
+    <h1>Application Diagram Id: {{ _app?.applicationDiagramId }}</h1>
+  </div>
 </div>
 
 <ng-template #newAppForm>
@@ -18,55 +30,61 @@
   >
 
     <div class="divForm">
-      <label class="labelForm" for="name">
+      <label class="labelForm" for="version">
         version
       </label>
-      <input class="inputForm" id="name" type="number" formControlName="version">
+      <input class="inputForm" id="version" type="number" formControlName="version">
     </div>
 
     <div class="divForm">
-      <label class="labelForm" for="cpuCoreCount">
+      <label class="labelForm" for="name">
         name
       </label>
-      <input class="inputForm" id="cpuCoreCount" type="text" formControlName="name">
+      <input class="inputForm" id="name" type="text" formControlName="name">
     </div>
 
     <div class="divForm">
-      <label class="labelForm" for="cpuClockSpeedInGHz">
-        executionDiagram
+      <label class="labelForm" for="applicationDiagramId">
+        applicationDiagramId
       </label>
-      <input class="inputForm" id="cpuClockSpeedInGHz" type="text" formControlName="executionDiagram">
+      <input class="inputForm" id="applicationDiagramId" type="text" formControlName="applicationDiagramId">
     </div>
 
     <div class="divForm">
-      <label class="labelForm" for="ramInGB">
+      <label class="labelForm" for="price">
         price
       </label>
-      <input class="inputForm" id="ramInGB" type="number" formControlName="price">
+      <input class="inputForm" id="price" type="number" formControlName="price">
     </div>
 
     <div class="divForm">
-      <label class="labelForm" for="gpuCoreClocksInGHz">
+      <label class="labelForm" for="iconURL">
         iconURL
       </label>
-      <input class="inputForm" id="gpuCoreClocksInGHz" type="text" formControlName="iconURL">
+      <input class="inputForm" id="iconURL" type="text" formControlName="iconURL">
     </div>
 
     <div class="divForm">
-      <label class="labelForm" for="inUse">
+      <label class="labelForm" for="inputDataFormatDescription">
         inputDataFormatDescription
       </label>
-      <input class="inputForm" id="inUse" type="text" formControlName="inputDataFormatDescription">
+      <input class="inputForm" id="inputDataFormatDescription" type="text" formControlName="inputDataFormatDescription">
     </div>
 
     <div class="divForm">
-      <label class="labelForm" for="duringDeactivation">
+      <label class="labelForm" for="outputDataFormatDescription">
         outputDataFormatDescription
       </label>
-      <input class="inputForm" id="duringDeactivation" type="text" formControlName="outputDataFormatDescription">
+      <input class="inputForm" id="outputDataFormatDescription" type="text" formControlName="outputDataFormatDescription">
     </div>
 
-    <button [disabled]="checkoutForm.invalid" class="button" type="submit" class="btn btn-primary">Add</button>
+    <button
+      [disabled]="checkoutForm.invalid"
+      class="btn btn-primary"
+      type="submit"
+    >
+      {{ _id === 'new' ? 'Add' : 'Update' }}
+    </button>
 
   </form>
 </ng-template>

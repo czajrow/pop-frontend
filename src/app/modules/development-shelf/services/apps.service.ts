@@ -4,7 +4,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { ApplicationData } from '../components/application/application.component';
 
-const APPS_URL = 'http://localhost:8000/imanageappIManageApp';
+const APPS_URL = 'http://localhost:8000/IManageApp/';
 
 @Injectable({
   providedIn: 'root'
@@ -12,9 +12,8 @@ const APPS_URL = 'http://localhost:8000/imanageappIManageApp';
 export class AppsService {
 
   private appsArray: ApplicationData[] = [];
-  private appDetails: ApplicationData;
   private appsSubject: BehaviorSubject<ApplicationData[]> = new BehaviorSubject<ApplicationData[]>([]);
-  public apps: Observable<ApplicationData[]> = this.appsSubject.asObservable();
+  public apps$: Observable<ApplicationData[]> = this.appsSubject.asObservable();
 
   constructor(
     private readonly http: HttpClient,
@@ -26,7 +25,7 @@ export class AppsService {
     const body = {
       version: data.version,
       name: data.name,
-      executionDiagram: data.executionDiagram,
+      applicationDiagramId: data.executionDiagram,
       price: data.price,
       iconURL: data.iconURL,
       inputDataFormatDescription: data.inputDataFormatDescription,
@@ -41,7 +40,7 @@ export class AppsService {
           this.appsArray.push({
             version: response.version,
             name: response.name,
-            executionDiagram: response.executionDiagram,
+            applicationDiagramId: response.executionDiagram,
             price: response.price,
             iconURL: response.iconURL,
             inputDataFormatDescription: response.inputDataFormatDescription,
@@ -49,6 +48,45 @@ export class AppsService {
             id: response.id,
           });
           this.appsSubject.next(this.appsArray);
+        }
+      }),
+    );
+  }
+
+  public updateApp(data): Observable<any> {
+    const body = {
+      version: data.version,
+      name: data.name,
+      applicationDiagramId: data.executionDiagram,
+      price: data.price,
+      iconURL: data.iconURL,
+      inputDataFormatDescription: data.inputDataFormatDescription,
+      outputDataFormatDescription: data.outputDataFormatDescription,
+    };
+
+    const url = APPS_URL + data?.id;
+
+    return this.http.put(url, body).pipe(
+      tap(response => {
+        if (response.detail) {
+          //
+        } else {
+          const updatedApp = this.appsArray.find(app => app.id === response.id);
+          const index = this.appsArray.indexOf(updatedApp);
+          if (updatedApp) {
+            this.appsArray.splice(index);
+            this.appsArray.push({
+              version: response.version,
+              name: response.name,
+              applicationDiagramId: response.executionDiagram,
+              price: response.price,
+              iconURL: response.iconURL,
+              inputDataFormatDescription: response.inputDataFormatDescription,
+              outputDataFormatDescription: response.outputDataFormatDescription,
+              id: response.id,
+            });
+            this.appsSubject.next(this.appsArray);          }
+
         }
       }),
     );
@@ -65,7 +103,7 @@ export class AppsService {
     const url = APPS_URL + '/' + id?.toString();
     return this.http.get(url).pipe(
       tap(response => response),
-    )
+    );
   }
 
   public deleteApp(id: number): void {

@@ -2,8 +2,15 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 export interface ComputationUnitData {
-  id: string;
+  id: number;
   name: string;
+  cpuCoreCount: number;
+  cpuClockSpeedInGHz: number;
+  ramInGB: number;
+  gpuCoreClocksInGHz: number;
+  cpuUtilization: number;
+  gpuUtilization: number;
+  duringDeactivation: boolean;
 }
 
 @Component({
