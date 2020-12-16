@@ -7,10 +7,10 @@
   </button>
   <hr>
   <img
-      [src]="_app?.iconURL"
-      alt="App's Image"
-      class="app-application__image"
-    >
+    [src]="_app?.iconURL"
+    alt="App's Image"
+    class="app-application__image"
+  >
   <div *ngIf="!_editMode; else newAppForm">
     <h1>App id: {{ _app?.id }}</h1>
     <h1>Name: {{ _app?.name }}</h1>
@@ -43,12 +43,23 @@
       <input class="inputForm" id="name" type="text" formControlName="name">
     </div>
 
+    <!--    <div class="divForm">-->
+    <!--      <label class="labelForm" for="applicationDiagramId">-->
+    <!--        applicationDiagramId-->
+    <!--      </label>-->
+    <!--      <input class="inputForm" id="applicationDiagramId" type="text" formControlName="applicationDiagramId">-->
+    <!--    </div>-->
+
     <div class="divForm">
       <label class="labelForm" for="applicationDiagramId">
         applicationDiagramId
       </label>
-      <input class="inputForm" id="applicationDiagramId" type="text" formControlName="applicationDiagramId">
+<!--      <input class="inputForm" id="applicationDiagramId" type="text" formControlName="applicationDiagramId">-->
+      <select  class="inputForm" id="applicationDiagramId" type="text" formControlName="applicationDiagramId">
+        <option *ngFor="let a of diagrams" [value]="a.id">{{ a.id }}</option>
+      </select>
     </div>
+
 
     <div class="divForm">
       <label class="labelForm" for="price">
@@ -75,7 +86,8 @@
       <label class="labelForm" for="outputDataFormatDescription">
         outputDataFormatDescription
       </label>
-      <input class="inputForm" id="outputDataFormatDescription" type="text" formControlName="outputDataFormatDescription">
+      <input class="inputForm" id="outputDataFormatDescription" type="text"
+             formControlName="outputDataFormatDescription">
     </div>
 
     <button

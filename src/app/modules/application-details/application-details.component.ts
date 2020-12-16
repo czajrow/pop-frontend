@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AppsService } from '../development-shelf/services/apps.service';
 import { ApplicationData } from '../development-shelf/components/application/application.component';
+import { DiagramService } from "../diagram/services/diagram.service";
 
 @Component({
   selector: 'app-application-details',
@@ -20,12 +21,19 @@ export class ApplicationDetailsComponent implements OnInit {
 
   public _editMode = false;
 
+  public diagrams: [];
+
   constructor(
     private readonly _activatedRoute: ActivatedRoute,
     private readonly _router: Router,
     private readonly _appsService: AppsService,
     private readonly _formBuilder: FormBuilder,
+    private readonly _diagramService: DiagramService,
   ) {
+    this._diagramService.getDiagrams().subscribe(a => {
+      this.diagrams = a;
+    });
+
     const id = this._activatedRoute.snapshot.paramMap.get('id');
 
     if (id) {

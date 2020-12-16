@@ -30,6 +30,12 @@ export class DiagramService {
       }),
     );
   }
+  public getDiagrams(): Observable<any> {
+    var url = APPS_URL;
+    return this.http.get(url).pipe(
+      tap(response => response),
+    );
+  }
   public getDiagram(id): Observable<any> {
     var url = APPS_URL + id;
     return this.http.get(url).pipe(
