@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, ViewChild, ViewEncapsulation } from '@angular/core';
 import * as go from 'gojs';
 import { DataSyncService, DiagramComponent, PaletteComponent } from 'gojs-angular';
-import * as _ from 'lodash';
+import { DiagramService } from '../../services/diagram.service';
 
 @Component({
   selector: 'app-diagram-editor',
@@ -56,7 +56,9 @@ export class DiagramEditorComponent {
       leftArray: [],
       rightArray: [],
       topArray: [],
-      bottomArray: []
+      bottomArray: [],
+      computationUnitId: 0,
+      computationUnitVersion: "1.0"
     };
     // To simplify this code we define a function for creating a context menu button:
     function makeButton(text, action) {
@@ -327,10 +329,10 @@ export class DiagramEditorComponent {
   }
 
   public diagramNodeData: Array<go.ObjectData> = [
-    { key: '1', name: "Unit one", color: 'lightblue', "leftArray": [], "rightArray": [], "topArray": [], "bottomArray": [] },
-    { key: '2', name: "Unit two", color: 'orange', "leftArray": [], "rightArray": [], "topArray": [], "bottomArray": [] },
-    { key: '3', name: "Unit three", color: 'lightgreen', "leftArray": [], "rightArray": [], "topArray": [], "bottomArray": [] },
-    { key: '4', name: "Unit four", color: 'pink', "leftArray": [], "rightArray": [], "topArray": [], "bottomArray": [] }
+    { key: '1', name: "Unit one", color: 'lightblue', "leftArray": [], "rightArray": [], "topArray": [], "bottomArray": [], "computationUnitId": 0, "computationUnitVersion": "1.0" },
+    { key: '2', name: "Unit two", color: 'orange', "leftArray": [], "rightArray": [], "topArray": [], "bottomArray": [], "computationUnitId": 0, "computationUnitVersion": "1.0" },
+    { key: '3', name: "Unit three", color: 'lightgreen', "leftArray": [], "rightArray": [], "topArray": [], "bottomArray": [], "computationUnitId": 0, "computationUnitVersion": "1.0" },
+    { key: '4', name: "Unit four", color: 'pink', "leftArray": [], "rightArray": [], "topArray": [], "bottomArray": [], "computationUnitId": 0, "computationUnitVersion": "1.0" }
   ];
   public diagramLinkData: Array<go.ObjectData> = [
     // { key: -1, from: 'Alpha', to: 'Beta', fromPort: 'r', toPort: '1' },
@@ -342,6 +344,11 @@ export class DiagramEditorComponent {
   public diagramDivClassName: string = 'myDiagramDiv';
   public diagramModelData = { prop: 'value' };
   public skipsDiagramUpdate = false;
+
+  public unitId = 0;
+  public unitVersion = "";
+  public diagramId = 0;
+
 
   // When the diagram model changes, update app data to reflect those changes
   public diagramModelChange = function (changes: go.IncrementalData) {
@@ -356,7 +363,8 @@ export class DiagramEditorComponent {
   };
 
 
-  constructor(private cdr: ChangeDetectorRef) { }
+  constructor(private cdr: ChangeDetectorRef,
+    private readonly _diagramService: DiagramService) { }
 
   // Overview Component testing
   public oDivClassName = 'myOverviewDiv';
@@ -393,31 +401,58 @@ export class DiagramEditorComponent {
   } // end ngAfterViewInit
 
 
-  public handleInspectorChange(newNodeData) {
-    const key = newNodeData.key;
-    // find the entry in nodeDataArray with this key, replace it with newNodeData
-    let index = null;
-    for (let i = 0; i < this.diagramNodeData.length; i++) {
-      const entry = this.diagramNodeData[i];
-      if (entry.key && entry.key === key) {
-        index = i;
-      }
-    }
+  // public handleInspectorChange(newNodeData) {
+  //   const key = newNodeData.key;
+  //   // find the entry in nodeDataArray with this key, replace it with newNodeData
+  //   let index = null;
+  //   for (let i = 0; i < this.diagramNodeData.length; i++) {
+  //     const entry = this.diagramNodeData[i];
+  //     if (entry.key && entry.key === key) {
+  //       index = i;
+  //     }
+  //   }
 
-    if (index >= 0) {
-      // here, we set skipsDiagramUpdate to false, since GoJS does not yet have this update
-      this.skipsDiagramUpdate = false;
-      this.diagramNodeData[index] = _.cloneDeep(newNodeData);
-    }
-  }
+  //   if (index >= 0) {
+  //     // here, we set skipsDiagramUpdate to false, since GoJS does not yet have this update
+  //     this.skipsDiagramUpdate = false;
+  //     this.diagramNodeData[index] = _.cloneDeep(newNodeData);
+  //   }
+  // }
 
   // Save the model to / load it from JSON text shown on the page itself, not in a database.
+  public update() {
+    var data = this.myDiagramComponent.diagram.model.toJson();
+    (<HTMLInputElement>document.getElementById("mySavedModel")).value = data;
+    data = "{\n" + data.substring(223); 
+    this._diagramService.updateDiagram(this.diagramId, data).subscribe();
+  }
   public save() {
-    (<HTMLInputElement>document.getElementById("mySavedModel")).value = this.myDiagramComponent.diagram.model.toJson();
+    var data = this.myDiagramComponent.diagram.model.toJson();
+    (<HTMLInputElement>document.getElementById("mySavedModel")).value = data;
+    data = "{\n" + data.substring(223); 
     this.myDiagramComponent.diagram.isModified = false;
+    this._diagramService.createDiagram(data).subscribe();
   }
   public load() {
-    this.myDiagramComponent.diagram.model = go.Model.fromJson((<HTMLInputElement>document.getElementById("mySavedModel")).value);
+    if(this.diagramId !== 0){
+      this._diagramService.getDiagram(this.diagramId).subscribe(response => {
+        var diagram = `{ "class": "GraphLinksModel",
+"copiesArrays": true,
+"copiesArrayObjects": true,
+"linkKeyProperty": "key",
+"linkFromPortIdProperty": "fromPort",
+"linkToPortIdProperty": "toPort",
+"modelData": {"prop":"value"},
+"nodeDataArray":
+`
+        diagram += JSON.stringify(response.nodeDataArray) + "\n,";
+        diagram += `"linkDataArray":\n`
+        diagram += JSON.stringify(response.linkDataArray) + "\n}";
+        console.log(diagram);
+        this.myDiagramComponent.diagram.model = go.Model.fromJson(diagram);
+      
+      });
+    }
 
     // When copying a node, we need to copy the data that the node is bound to.
     // This JavaScript object includes properties for the node as a whole, and
@@ -460,5 +495,17 @@ export class DiagramEditorComponent {
       }
     });
     this.myDiagramComponent.diagram.commitTransaction("addPort");
+  }
+  onKey1(event) {this.unitId = event.target.value;}
+  onKey2(event) {this.unitVersion = event.target.value;}
+  onKey3(event) {this.diagramId = event.target.value;}
+
+  addUnitInfoToNode(){
+    if(this.selectedNode === null){
+      alert("Choose node first!")
+    }
+    this.selectedNode.data.computationUnitId = this.unitId;
+    this.selectedNode.data.computationUnitVersion = this.unitVersion;
+    alert("Successfully changed!")
   }
 }

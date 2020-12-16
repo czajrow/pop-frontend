@@ -9,6 +9,17 @@
                 [skipsDiagramUpdate]='skipsDiagramUpdate'
                 (modelChange)='diagramModelChange($event)'>
   </gojs-diagram>
+  <label>Computation Unit Id</label><input (keyup)="onKey1($event)" style="display: flex" type=number>
+  <br>
+  <label>Computation Unit Version</label><input (keyup)="onKey2($event)" style="display: flex">
+  <br>
+  <button type="button" class="btn btn-primary" (click)="addUnitInfoToNode()">Add computation unit info</button>
+  <br>
+  <label>Diagram Id</label><input (keyup)="onKey3($event)" style="display: flex" type="number">
+  <br>
+  <button type="button" class="btn btn-primary" (click)="load()">Load diagram</button>
+  <button type="button" class="btn btn-primary" (click)="update()">Update diagram</button>
+  <button type="button" class="btn btn-primary" id="SaveButton" (click)="save()">Save</button>
   <hr>
   Add port to selected node:
   <button type="button" class="btn btn-secondary" (click)="addPort('top')">Top</button>
@@ -36,13 +47,13 @@
   "linkToPortIdProperty": "toPort",
   "modelData": {"prop":"value"},
   "nodeDataArray": [
-{"key":"1", "name":"Unit one", "color":"lightblue", "leftArray":[], "rightArray":[ {
+{"key":"1", "computationUnitId": 0, "computationUnitVersion": "1.0", "name":"Unit one", "color":"lightblue", "leftArray":[], "rightArray":[ {
     "portId":"right0", "portColor":"#e43f5a"} ], "topArray":[], "bottomArray":[ {"portId":"bottom0", "portColor":"#59405c"} ], "loc":"-115 39"},
-      {"key":"2", "name":"Unit two", "color":"orange", "leftArray":[ {"portId":"left0", "portColor":"#322f3d"} ], "rightArray":[], "topArray":[], "bottomArray":[ {"portId":"bottom0", "portColor":"#1b1b2f"} ], "loc":"157 12"}
+      {"key":"2", "computationUnitId": 0, "computationUnitVersion": "1.0", "name":"Unit two", "color":"orange", "leftArray":[ {"portId":"left0", "portColor":"#322f3d"} ], "rightArray":[], "topArray":[], "bottomArray":[ {"portId":"bottom0", "portColor":"#1b1b2f"} ], "loc":"157 12"}
     ,
-{"key":"3", "name":"Unit three", "color":"lightgreen", "leftArray":[], "rightArray":[ {
+{"key":"3", "computationUnitId": 0, "computationUnitVersion": "1.0", "name":"Unit three", "color":"lightgreen", "leftArray":[], "rightArray":[ {
     "portId":"right0", "portColor":"#4b5d67"} ], "topArray":[ {"portId":"top0", "portColor":"#1f4068"} ], "bottomArray":[], "loc":"-36 182"},
-      {"key":"4", "name":"Unit four", "color":"pink", "leftArray":[ {"portId":"left0", "portColor":"#e43f5a"} ], "rightArray":[], "topArray":[ {"portId":"top0", "portColor":"#322f3d"} ], "bottomArray":[], "loc":"210.5 148"}
+      {"key":"4", "computationUnitId": 0, "computationUnitVersion": "1.0", "name":"Unit four", "color":"pink", "leftArray":[ {"portId":"left0", "portColor":"#e43f5a"} ], "rightArray":[], "topArray":[ {"portId":"top0", "portColor":"#322f3d"} ], "bottomArray":[], "loc":"210.5 148"}
       ],
   "linkDataArray": [
 {"from":"1", "to":"2", "fromPort":"right0", "toPort":"left0", "key":-1},
