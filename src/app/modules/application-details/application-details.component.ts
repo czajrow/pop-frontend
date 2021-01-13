@@ -62,7 +62,7 @@ export class ApplicationDetailsComponent implements OnInit {
             iconURL: [response.iconURL, Validators.required],
             inputDataFormatDescription: [response.inputDataFormatDescription, Validators.required],
             outputDataFormatDescription: [response.outputDataFormatDescription, Validators.required],
-            tags: [response.tags],
+            tags: [this.tags],
           });
         },
         error => {
