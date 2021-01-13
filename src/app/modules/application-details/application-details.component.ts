@@ -18,6 +18,7 @@ export class ApplicationDetailsComponent implements OnInit {
   public _id: string;
   public _app: ApplicationData;
   public readonly _isNew: boolean;
+  public tags: any;
 
   public _editMode = false;
 
@@ -45,6 +46,13 @@ export class ApplicationDetailsComponent implements OnInit {
       this._appsService.getApp(id).subscribe(
         response => {
           this._app = response;
+          if (response?.tags) {
+            let tags = '';
+            for (const tag of response.tags) {
+              tags += tag + ',';
+            }
+            this.tags = tags;
+          }
           console.log(this._app);
           this.checkoutForm = this._formBuilder.group({
             version: [response.version, Validators.required],
@@ -54,6 +62,7 @@ export class ApplicationDetailsComponent implements OnInit {
             iconURL: [response.iconURL, Validators.required],
             inputDataFormatDescription: [response.inputDataFormatDescription, Validators.required],
             outputDataFormatDescription: [response.outputDataFormatDescription, Validators.required],
+            tags: [response.tags],
           });
         },
         error => {
@@ -69,6 +78,7 @@ export class ApplicationDetailsComponent implements OnInit {
         iconURL: ['', Validators.required],
         inputDataFormatDescription: ['', Validators.required],
         outputDataFormatDescription: ['', Validators.required],
+        tags: [[], Validators.min(0)],
       });
     }
   }
@@ -78,6 +88,14 @@ export class ApplicationDetailsComponent implements OnInit {
 
   onSubmit(customerData, event): void {
     event.preventDefault();
+    console.log('customerData', customerData);
+
+    const tags = customerData.tags;
+    if (tags) {
+      customerData.tags = (tags as string).split(',');
+    } else {
+      customerData.tags = [];
+    }
 
     if (this._id === 'new') {
       this._appsService.createApp(customerData).subscribe(

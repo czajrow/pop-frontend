@@ -30,6 +30,7 @@ export class AppsService {
       iconURL: data.iconURL,
       inputDataFormatDescription: data.inputDataFormatDescription,
       outputDataFormatDescription: data.outputDataFormatDescription,
+      tags: data.tags,
     };
 
     return this.http.post(APPS_URL, body).pipe(
@@ -62,6 +63,7 @@ export class AppsService {
       iconURL: data.iconURL,
       inputDataFormatDescription: data.inputDataFormatDescription,
       outputDataFormatDescription: data.outputDataFormatDescription,
+      tags: data.tags,
     };
 
     const url = APPS_URL + data?.id;
@@ -100,14 +102,14 @@ export class AppsService {
   }
 
   public getApp(id): Observable<any> {
-    const url = APPS_URL + '/' + id?.toString();
+    const url = APPS_URL + id?.toString();
     return this.http.get(url).pipe(
       tap(response => response),
     );
   }
 
   public deleteApp(id: number): void {
-    const url = APPS_URL + '/' + id?.toString();
+    const url = APPS_URL + id?.toString();
     this.http.delete(url).subscribe(
       a => {
         console.log(a);
