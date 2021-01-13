@@ -39,7 +39,8 @@ export class ComputationUnitComponent implements OnInit {
   onDelete(event: Event): void {
     event.stopPropagation();
     this._clustersService.deleteCluster(this.computationUnit.id);
-    // this._router.navigate(['computation-unit-shelf']);
+    // window.location.reload();
+    this._clustersService.getClusters();
   }
 
 }
