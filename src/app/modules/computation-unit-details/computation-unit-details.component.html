@@ -1,13 +1,22 @@
 <div *ngIf="!_isNew; else newClusterForm">
-  <h1>Cluster id: {{ _id }}</h1>
-  <h1>Cluster name: {{ _cluster?.name }}</h1>
-  <h1>Cpu Clock Speed in GHz: {{ _cluster?.cpuClockSpeedInGHz }}</h1>
-  <h1>Cpu Core Count: {{ _cluster?.cpuCoreCount }}</h1>
-  <h1>Cpu Utilization: {{ _cluster?.cpuUtilization }}</h1>
-  <h1>During Deactivation: {{ _cluster?.duringDeactivation }}</h1>
-  <h1>Gpu Core Clocks in GHz: {{ _cluster?.gpuCoreClocksInGHz }}</h1>
-  <h1>Gpu Utilization: {{ _cluster?.gpuUtilization }}</h1>
-  <h1>Ram in GB: {{ _cluster?.ramInGB }}</h1>
+  <button
+    (click)="_editMode = !_editMode"
+    class="btn btn-primary"
+  >
+    Edit
+  </button>
+  <hr>
+  <div *ngIf="!_editMode; else newClusterForm">
+    <h1>Cluster id: {{ _id }}</h1>
+    <h1>Cluster name: {{ _cluster?.name }}</h1>
+    <h1>Cpu Core Count: {{ _cluster?.cpuCoreCount }}</h1>
+    <h1>Cpu Clock Speed in GHz: {{ _cluster?.cpuClockSpeedInGHz }}</h1>
+    <h1>Ram in GB: {{ _cluster?.ramInGB }}</h1>
+    <h1>Gpu Core Clocks in GHz: {{ _cluster?.gpuCoreClocksInGHz }}</h1>
+    <h1>Cpu Utilization: {{ _cluster?.cpuUtilization }}</h1>
+    <h1>Gpu Utilization: {{ _cluster?.gpuUtilization }}</h1>
+    <h1>During Deactivation: {{ _cluster?.duringDeactivation }}</h1>
+  </div>
 </div>
 
 <ng-template #newClusterForm>
@@ -69,7 +78,14 @@
       <input class="inputForm" id="gpuUtilization" type="number" formControlName="gpuUtilization">
     </div>
 
-    <button [disabled]="checkoutForm.invalid" class="button" type="submit" class="btn btn-primary">Add</button>
+    <button
+      [disabled]="checkoutForm.invalid"
+      class="button btn btn-primary"
+      type="submit"
+    >
+      {{ _id === 'new' ? 'Add' : 'Update' }}
+    </button>
+
 
   </form>
 </ng-template>

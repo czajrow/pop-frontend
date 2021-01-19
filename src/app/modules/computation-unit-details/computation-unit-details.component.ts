@@ -17,6 +17,7 @@ export class ComputationUnitDetailsComponent implements OnInit {
   public _id: string;
   public readonly _isNew: boolean;
   public _cluster: ComputationUnitData;
+  public _editMode = false;
 
   constructor(
     private readonly _activatedRoute: ActivatedRoute,
@@ -31,20 +32,34 @@ export class ComputationUnitDetailsComponent implements OnInit {
       this._isNew = this._id === 'new';
     }
 
-    this._cluster = _clustersService.computationUnitsArray.find(cluster => cluster.id === (+this._id));
-    console.log(this._id, _clustersService.computationUnitsArray);
+    this._clustersService.getCluster(+this._id).subscribe(cluster => {
+      this._cluster = cluster;
 
-    this.checkoutForm = this._formBuilder.group({
-      name: ['', Validators.required],
-      cpuCoreCount: [1, Validators.required],
-      cpuClockSpeedInGHz: [1.0, Validators.required],
-      ramInGB: [1, Validators.required],
-      gpuCoreClocksInGHz: [1.0, Validators.required],
-      // inUse: [true, Validators.required],
-      // expectedCalculationsFinishTime: ['', Validators.required],
-      cpuUtilization: [1, Validators.required],
-      gpuUtilization: [1, Validators.required],
-      duringDeactivation: [true, Validators.required],
+      if (this._isNew) {
+        this.checkoutForm = this._formBuilder.group({
+          name: ['', Validators.required],
+          cpuCoreCount: [1, Validators.required],
+          cpuClockSpeedInGHz: [1.0, Validators.required],
+          ramInGB: [1, Validators.required],
+          gpuCoreClocksInGHz: [1.0, Validators.required],
+          // inUse: [true, Validators.required],
+          // expectedCalculationsFinishTime: ['', Validators.required],
+          cpuUtilization: [1, Validators.required],
+          gpuUtilization: [1, Validators.required],
+          duringDeactivation: [true, Validators.required],
+        });
+      } else {
+        this.checkoutForm = this._formBuilder.group({
+          name: [this._cluster.name, Validators.required],
+          cpuCoreCount: [this._cluster.cpuCoreCount, Validators.required],
+          cpuClockSpeedInGHz: [this._cluster.cpuClockSpeedInGHz, Validators.required],
+          ramInGB: [this._cluster.ramInGB, Validators.required],
+          gpuCoreClocksInGHz: [this._cluster.gpuCoreClocksInGHz, Validators.required],
+          cpuUtilization: [this._cluster.cpuUtilization, Validators.required],
+          gpuUtilization: [this._cluster.gpuUtilization, Validators.required],
+          duringDeactivation: [this._cluster.duringDeactivation, Validators.required],
+        });
+      }
     });
   }
 
@@ -54,15 +69,29 @@ export class ComputationUnitDetailsComponent implements OnInit {
   onSubmit(customerData, event): void {
     event.preventDefault();
     customerData.expectedCalculationsFinishTime = customerData.expectedCalculationsFinishTime + 'T00:00:00.000Z';
-    this._clustersService.createCluster(customerData).subscribe(
-      response => {
-        alert("Dodano CCluster!");
-        this._router.navigate(['computation-unit-shelf']);
-      },
-      error => {
-        alert(error?.error?.detail || 'Unknown error appeared...');
-      }
-    );
+
+    if (this._isNew) {
+      this._clustersService.createCluster(customerData).subscribe(
+        response => {
+          alert("Dodano CCluster!");
+          this._router.navigate(['computation-unit-shelf']);
+        },
+        error => {
+          alert(error?.error?.detail || 'Unknown error appeared...');
+        }
+      );
+    } else {
+      this._clustersService.updateCluster(+this._id, customerData).subscribe(
+        response => {
+          alert('Zaktualizowano CCluster!');
+          this._router.navigate(['computation-unit-shelf']);
+        },
+        error => {
+          alert(error?.error?.detail || 'Unknown error appeared...');
+        }
+      );
+    }
+
   }
 
 }

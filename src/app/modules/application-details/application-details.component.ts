@@ -22,7 +22,7 @@ export class ApplicationDetailsComponent implements OnInit {
 
   public _editMode = false;
 
-  public diagrams: [];
+  public diagrams: {id: any}[];
 
   constructor(
     private readonly _activatedRoute: ActivatedRoute,
@@ -31,10 +31,6 @@ export class ApplicationDetailsComponent implements OnInit {
     private readonly _formBuilder: FormBuilder,
     private readonly _diagramService: DiagramService,
   ) {
-    this._diagramService.getDiagrams().subscribe(a => {
-      this.diagrams = a;
-    });
-
     const id = this._activatedRoute.snapshot.paramMap.get('id');
 
     if (id) {
@@ -42,45 +38,50 @@ export class ApplicationDetailsComponent implements OnInit {
       this._isNew = this._id === 'new';
     }
 
-    if (id !== 'new') {
-      this._appsService.getApp(id).subscribe(
-        response => {
-          this._app = response;
-          if (response?.tags) {
-            let tags = '';
-            for (const tag of response.tags) {
-              tags += tag + ',';
+    this._diagramService.getDiagrams().subscribe(a => {
+      this.diagrams = a;
+
+
+      if (!this._isNew) {
+        this._appsService.getApp(id).subscribe(response => {
+            this._app = response;
+            if (response?.tags) {
+              let tags = '';
+              for (const tag of response.tags) {
+                tags += tag + ',';
+              }
+              this.tags = tags;
             }
-            this.tags = tags;
+            this.checkoutForm = this._formBuilder.group({
+              version: [response.version, Validators.required],
+              name: [response.name, Validators.required],
+              applicationDiagramId: [response.applicationDiagramId, Validators.required],
+              price: [response.price, Validators.required],
+              iconURL: [response.iconURL, Validators.required],
+              inputDataFormatDescription: [response.inputDataFormatDescription, Validators.required],
+              outputDataFormatDescription: [response.outputDataFormatDescription, Validators.required],
+              tags: [this.tags],
+            });
+          },
+          error => {
+            alert(error?.error?.detail || 'Unknown error appeared...');
           }
-          console.log(this._app);
-          this.checkoutForm = this._formBuilder.group({
-            version: [response.version, Validators.required],
-            name: [response.name, Validators.required],
-            applicationDiagramId: [response.applicationDiagramId, Validators.required],
-            price: [response.price, Validators.required],
-            iconURL: [response.iconURL, Validators.required],
-            inputDataFormatDescription: [response.inputDataFormatDescription, Validators.required],
-            outputDataFormatDescription: [response.outputDataFormatDescription, Validators.required],
-            tags: [this.tags],
-          });
-        },
-        error => {
-          alert(error?.error?.detail || 'Unknown error appeared...');
-        }
-      );
-    } else {
-      this.checkoutForm = this._formBuilder.group({
-        version: [1, Validators.required],
-        name: ['', Validators.required],
-        applicationDiagramId: ['', Validators.required],
-        price: [1, Validators.required],
-        iconURL: ['', Validators.required],
-        inputDataFormatDescription: ['', Validators.required],
-        outputDataFormatDescription: ['', Validators.required],
-        tags: [[], Validators.min(0)],
-      });
-    }
+        );
+      } else {
+        this.checkoutForm = this._formBuilder.group({
+          version: [1, Validators.required],
+          name: ['', Validators.required],
+          applicationDiagramId: ['', Validators.required],
+          price: [1, Validators.required],
+          iconURL: ['', Validators.required],
+          inputDataFormatDescription: ['', Validators.required],
+          outputDataFormatDescription: ['', Validators.required],
+          tags: [[], Validators.min(0)],
+        });
+      }
+    });
+
+
   }
 
   ngOnInit(): void {
@@ -88,7 +89,6 @@ export class ApplicationDetailsComponent implements OnInit {
 
   onSubmit(customerData, event): void {
     event.preventDefault();
-    console.log('customerData', customerData);
 
     const tags = customerData.tags;
     if (tags) {

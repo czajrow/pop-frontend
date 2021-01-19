@@ -43,6 +43,27 @@ export class ClustersService {
     );
   }
 
+  public updateCluster(id: number, customerData: ComputationUnitData): Observable<any> {
+    const body = {
+      name: customerData.name,
+      cpuCoreCount: customerData.cpuCoreCount,
+      cpuClockSpeedInGHz: customerData.cpuClockSpeedInGHz,
+      ramInGB: customerData.ramInGB,
+      gpuCoreClocksInGHz: customerData.gpuCoreClocksInGHz,
+      duringDeactivation: customerData.duringDeactivation,
+      cpuUtilization: customerData.cpuUtilization,
+      gpuUtilization: customerData.gpuUtilization,
+    } as Partial<ComputationUnitData>;
+
+    return this.http.put(CLUSTERS_URL + id, body).pipe(
+      tap(response => {
+        const index = this.computationUnitsArray.findIndex(cu => cu.id === id);
+        this.computationUnitsArray[index] = response;
+        this.computationUnitsSubject.next(this.computationUnitsArray);
+      }),
+    );
+  }
+
   public getClusters(): void {
     this.http.get(CLUSTERS_URL).subscribe(a => {
       this.computationUnitsArray = a as ComputationUnitData[];
@@ -60,7 +81,7 @@ export class ClustersService {
   }
 
   public getCluster(id): Observable<ComputationUnitData> {
-    const url = CLUSTERS_URL + '/' + id?.toString();
+    const url = CLUSTERS_URL + id?.toString();
     return this.http.get(url).pipe(
       map(unit => unit as ComputationUnitData),
     );
